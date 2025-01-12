@@ -53,9 +53,9 @@ def clean_subject_dataframes(enhanced_subject_dfs):
         columns_to_find = {
             'SM_Module id': ['SM_Module id'],
             'Final Grade(N200)': ['Final Grade(N200)', 'Final Grade'],
-            'Final Marks': ['Final Marks(50 )', 'Final Marks(100 )', 'Total Marks(50 )'],
-            'ICA Total': ['ICA Total(50 )', 'ICA Total(100 )'],
-            'Term End Examination': ['Term End Examination(50 )', 'Term End Examination(100 )']
+            'Final Marks(100 )': ['Final Marks(50 )', 'Final Marks(100 )', 'Total Marks(50 )'],
+            'ICA Total(50 )': ['ICA Total(50 )', 'ICA Total(100 )'],
+            'Term End Examination(100 )': ['Term End Examination(50 )', 'Term End Examination(100 )']
         }
         
         for new_col_name, possible_names in columns_to_find.items():
@@ -96,9 +96,9 @@ def standardize_columns(df, columns_mapping):
         standardized_df['Subject Name'] = df['Subject Name']
     
     numeric_columns = [
-        'Final Marks', 
-        'ICA Total', 
-        'Term End Examination'
+        'Final Marks(100 )', 
+        'ICA Total(50 )', 
+        'Term End Examination(100 )'
     ]
     
     for new_col_name, possible_names in columns_mapping.items():
@@ -133,9 +133,9 @@ def process_excel_file(uploaded_file):
     columns_to_find = {
         'SM_Module id': ['SM_Module id'],
         'Final Grade(N200)': ['Final Grade(N200)', 'Final Grade'],
-        'Final Marks': ['Final Marks', 'Final Marks(50 )', 'Final Marks(100 )'],
-        'ICA Total': ['ICA Total', 'ICA Total(50 )', 'ICA Total(100 )'],
-        'Term End Examination': ['Term End Examination', 'Term End Examination(50 )', 'Term End Examination(100 )']
+        'Final Marks(100 )': ['Final Marks', 'Final Marks(50 )', 'Final Marks(100 )'],
+        'ICA Total(50 )': ['ICA Total', 'ICA Total(50 )', 'ICA Total(100 )'],
+        'Term End Examination(100 )': ['Term End Examination', 'Term End Examination(50 )', 'Term End Examination(100 )']
     }
     
     # Create combined sheet
