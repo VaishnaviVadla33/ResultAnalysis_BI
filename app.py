@@ -119,7 +119,7 @@ def process_excel_file(uploaded_file):
     columns_to_extract = [
         'Student Number', 'Student Name', 'Additional ID', 'Gender', 
         'Program', 'Campus', 'Total', 'Aggregate', 'SGPA', 
-        'CGPA', 'Percentage', 'Result', 'Status'
+        'CGPA', 'Percentage', 'Result', 'Status', 'Current F'
     ]
     new_df = df[columns_to_extract]
     
