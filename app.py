@@ -270,7 +270,7 @@ def main():
     st.markdown("---")
     st.markdown("""
         <div style='text-align: center; color: #666;'>
-        Made with ❤️ for easy data processing
+        Specifically designed for precise data processing
         </div>
     """, unsafe_allow_html=True)
 
