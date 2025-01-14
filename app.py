@@ -157,40 +157,122 @@ def process_excel_file(uploaded_file):
     output.seek(0)
     return output
 
+
 def main():
-    st.title("Excel Data Processor")
-    
-    st.write("""
-    ### Instructions:
-    1. Upload your Excel file containing student data
-    2. The application will process the data and create:
-        - A MainTable with basic student information
-        - Individual sheets for each subject
-        - An AllInOne sheet combining all subject data
-    3. Download the processed Excel file
-    """)
-    
-    uploaded_file = st.file_uploader("Choose an Excel file", type="xlsx")
-    
-    if uploaded_file is not None:
-        st.write("File uploaded successfully!")
-        
-        if st.button("Process Data"):
-            with st.spinner("Processing..."):
+    # Page configuration
+    st.set_page_config(
+        page_title="Excel Data Processor",
+        page_icon="📊",
+        layout="wide"
+    )
+
+    # Custom CSS for better styling
+    st.markdown("""
+        <style>
+        .main {
+            padding: 2rem;
+        }
+        .stButton>button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .stDownloadButton>button {
+            width: 100%;
+            background-color: #008CBA;
+            color: white;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .success-message {
+            padding: 1rem;
+            background-color: #DFF0D8;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .error-message {
+            padding: 1rem;
+            background-color: #F2DEDE;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Header section with improved layout
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.title("📊 Excel Data Processor")
+        st.markdown("---")
+
+    # Main container
+    with st.container():
+        # Instructions in an expander
+        with st.expander("📖 Instructions", expanded=True):
+            st.markdown("""
+            ### How to Use:
+            1. **Upload Your File**: Select an Excel file (.xlsx) containing student data
+            2. **Process Data**: Click the 'Process Data' button to generate:
+                * MainTable - Basic student information
+                * Subject Sheets - Individual subject data
+                * AllInOne Sheet - Combined subject information
+            3. **Download**: Get your processed Excel file
+            """)
+
+        # File upload section
+        st.markdown("### 📤 Upload Your Excel File")
+        uploaded_file = st.file_uploader("", type="xlsx", help="Upload an Excel file (.xlsx)")
+
+        # Create two columns for processing and status
+        if uploaded_file is not None:
+            st.success("✅ File uploaded successfully!")
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                process_button = st.button("🔄 Process Data", key="process")
+            
+            if process_button:
                 try:
-                    processed_file = process_excel_file(uploaded_file)
+                    with st.spinner("🔄 Processing your data..."):
+                        processed_file = process_excel_file(uploaded_file)
                     
-                    # Create download button
+                    st.success("✨ Processing completed successfully!")
+                    
+                    # Download section with better styling
+                    st.markdown("### 📥 Download Processed File")
                     st.download_button(
-                        label="Download Processed Excel",
+                        label="📎 Download Processed Excel",
                         data=processed_file,
                         file_name="processed_data.xlsx",
                         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                     )
                     
-                    st.success("Data processing completed!")
+                    # Add a summary of what was created
+                    st.info("""
+                    #### Files Created:
+                    - ✅ MainTable with student information
+                    - ✅ Individual subject sheets
+                    - ✅ Combined AllInOne sheet
+                    """)
+                    
                 except Exception as e:
-                    st.error(f"An error occurred: {str(e)}")
+                    st.error(f"❌ An error occurred: {str(e)}")
+                    st.markdown("""
+                    Please check that:
+                    - Your Excel file is not corrupted
+                    - The file contains all required columns
+                    - The file format matches the expected structure
+                    """)
+
+    # Footer
+    st.markdown("---")
+    st.markdown("""
+        <div style='text-align: center; color: #666;'>
+        Made with ❤️ for easy data processing
+        </div>
+    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
